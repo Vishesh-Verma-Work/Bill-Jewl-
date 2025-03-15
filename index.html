@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Bill</title>
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --background-color: #f5f7fa;
+            --card-background: #ffffff;
+            --text-color: #2c3e50;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 16px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-background);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 24px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .date-input {
+            display: flex;
+            gap: 8px;
+        }
+
+        .date-input input {
+            width: 80px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            flex: 1;
+        }
+
+        button:hover {
+            background-color: #283593;
+        }
+
+        .ganthh-list {
+            margin-top: 32px;
+        }
+
+        .ganthh-item {
+            padding: 16px;
+            margin-bottom: 12px;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .ganthh-item:nth-child(even) {
+            background-color: #ffffff;
+        }
+
+        .bill-container {
+            margin-top: 32px;
+            padding: 24px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .bill-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .bill-date {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .bill-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+
+        .bill-table tr:nth-child(odd) {
+            background-color: #f8fafc;
+        }
+
+        .bill-table td {
+            padding: 12px;
+            vertical-align: top;
+        }
+
+        .bill-summary {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .bill-summary p {
+            margin: 8px 0;
+            font-weight: 500;
+        }
+
+        .interest-breakdown {
+            margin: 12px 0;
+            padding: 12px;
+            border-radius: 6px;
+        }
+
+        .interest-breakdown div {
+            padding: 8px;
+            margin: 4px 0;
+            border-radius: 4px;
+        }
+
+        .interest-breakdown div.first-period {
+            background-color: #e3f2fd;
+        }
+
+        .interest-breakdown div.compound-period {
+            background-color: #f3e5f5;
+        }
+
+        .interest-breakdown div.remaining-period {
+            background-color: #e8f5e9;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+            gap: 12px;
+        }
+
+        .download-btn {
+            background-color: var(--primary-color);
+            padding: 10px 20px;
+            flex: 0 0 auto;
+        }
+
+        .clear-btn {
+            background-color: #dc3545;
+            padding: 10px 20px;
+            flex: 0 0 auto;
+        }
+
+        .clear-btn:hover {
+            background-color: #c82333;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .bill-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .bill-table tr {
+                margin-bottom: 16px;
+                display: block;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .action-buttons {
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Bill</h1>
+        
+        <div class="input-group">
+            <label for="ganthhNumber">Ganthh Number (1-4 digits)</label>
+            <input type="number" id="ganthhNumber" min="1" max="9999">
+        </div>
+
+        <div class="input-group">
+            <label>End Date</label>
+            <div class="date-input">
+                <input type="number" id="endDay" placeholder="DD" min="1" max="30">
+                <input type="number" id="endMonth" placeholder="MM" min="1" max="12">
+                <input type="number" id="endYear" placeholder="YY" min="0" max="99">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="ganthhAmount">Ganthh Amount</label>
+            <input type="number" id="ganthhAmount" min="0">
+        </div>
+
+        <div class="button-group">
+            <button onclick="addGanthh()">Add Data</button>
+            <button onclick="createBill()">Create Bill</button>
+        </div>
+
+        <div class="action-buttons">
+            <button class="clear-btn" onclick="clearBill()">Clear Bill</button>
+        </div>
+
+        <div class="ganthh-list" id="ganthhList"></div>
+        <div id="billOutput"></div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="/bill.js"></script>
+</body>
+</html>
